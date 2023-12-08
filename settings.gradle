@@ -1,0 +1,4 @@
+rootProject.name = 'monitoring'
+
+include ':moz_ates_common'
+project(':moz_ates_common').projectDir = new File(settingsDir, '../moz_ates_common')

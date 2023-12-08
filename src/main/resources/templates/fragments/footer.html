@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="footerFragment" id="footerContainer">
+	<div layout:fragment="TfcAcdnt" id="TfcAcdnt"
+		style="font-size:12px;width: 49%; float: left;">
+		<div>
+			<h6
+				style="display: inline; display: flex; justify-content: center; font-weight: bold;">Accident List</h6>
+		</div>
+		<div>
+			<table>
+				<thead>
+					<tr align="center">
+						<th>Location</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="line : ${list}" align="center">
+						<td th:text="${line.roadAddr}"></td>
+						<td th:text="${line.acdntDt}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div layout:fragment="tfcEnf" id="tfcEnf"
+		style="font-size:12px;width: 49%; float: right;">
+		<div>
+			<h6
+				style="display: inline; display: flex; justify-content: center; font-weight: bold;">Enforcement List</h6>
+		</div>
+		<div>
+			<table>
+				<thead>
+					<tr align="center">
+						<th>Location</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="record : ${record}"  align="center">
+						<td th:text="${record.roadAddr}"></td>
+						<td th:text="${record.tfcEnfDt}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</html>
