@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/layout">
+<div layout:fragment="content" id="rootContainer" class="bg-gray-200 h-dvh flex flex-col relative text-gray-700">
+    <header class="bg-white border-b text-gray-700 border-b-gray-300 flex flex-row justify-between items-center px-6 py-2">
+        <a href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+            </svg>
+        </a>
+        <h1 class="text-center sm:text-sm md:text-sm flex font-bold flex-row items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+            </svg>
+            <span>MOZ-ATES Statistics Monitoring</span>
+        </h1>
+        <div>
+        </div>
+    </header>
+    <div id="statisticsContainer" class="w-full grid grid-flow-row gap-4 grid-rows-8 grid-cols-12 h-[calc(100%-41px)] justify-items-stretch px-4 py-4">
+
+    </div>
+    <script type="module" th:src="@{/js/statistics/statistics.js}"></script>
+</div>
+
+</html>

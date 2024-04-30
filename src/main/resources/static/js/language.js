@@ -1,0 +1,8 @@
+const lang = {
+    eng : {
+
+    },
+    por : {
+        
+    }
+}

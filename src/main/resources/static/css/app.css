@@ -1,40 +1,41 @@
-@import "common.css";
-* {
-    box-sizing: border-box;
-}
-html,
-body,
-#dashboardContainer {
-    width:100%;
-    height:100%;
-}
-#dashboardContainer {
+.intro-select-container::after {
+    background-size: cover;
     position:relative;
-    padding:0 0 80px 80px;
-}
-#leftContainer {
-    position:absolute;
-    left:80px;
+    z-index:1;
+    content:"";
+    opacity:0.1;
+    display:block;
+    left:0;
     top:0;
-    bottom:0;
-}
-#footerContainer {
-    position:absolute;
-    bottom:0;
-    left:80px;
-    right:0;
-    height:25vh;
-    background:#f9f9f9;
-}
-#mapContainer {
-    position:absolute;
-    top:0;
-    right:0;
-    left:80px;
-    height:75vh;
-    background:#f9f9f9;
-}
-#mapContainer #map {
     height:100%;
     width:100%;
+    transition-duration: 2s;
+}
+#selectMapMonitoringContainer.intro-select-container::after {
+    background-image: url(../assets/bg-intro-map.png);
+}
+#selectStatisticsMonitoringContainer.intro-select-container::after {
+    background-image: url(../assets/bg-intro-statistics.png);
+}
+#selectMapMonitoringContainer.intro-select-container:hover::after,
+#selectStatisticsMonitoringContainer.intro-select-container:hover::after {
+    opacity:0.5;
+    animation-name: bg-transition;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+
+@keyframes bg-transition {
+    0% {
+        background-position-y: 0;
+    }
+    50% {
+        background-position-y: -100px;
+    }
+    100% {
+        background-position-y: 0;
+    }
 }

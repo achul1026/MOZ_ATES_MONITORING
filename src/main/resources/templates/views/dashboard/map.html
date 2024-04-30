@@ -1,0 +1,138 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/layout">
+<div layout:fragment="content" id="rootContainer" class="bg-gray-200 h-dvh flex flex-col relative text-gray-700">
+    <header class="bg-white border-b text-gray-700 border-b-gray-300 flex flex-row justify-between items-center px-6 py-2">
+        <a href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+            </svg>
+        </a>
+        <h1 class="text-center sm:text-sm md:text-sm flex font-bold flex-row items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+            </svg>
+            <span>MOZ-ATES Map Monitoring</span>
+        </h1>
+        <div>
+        </div>
+    </header>
+    <div class="w-full h-full relative text-white">
+        <div id="map" class="w-full h-full">
+
+        </div>
+        <div id="mapOverlapContainer" class="text-sm absolute left-0 top-0 bottom-0">
+            <div id="mapStatisticsContainer" class="absolute left-3 bottom-[30px] flex col gap-2 items-end">
+                <div id="enforcementMapDataWrap" class="bg-gray-700 rounded w-[400px]">
+                    <h2 class="px-4 py-2">Traffic Enforcement Analysis</h2>
+                    <form id="enfAnalysisForm" name="enfAnalysisForm" class="hidden flex flex-row px-4 py-4 gap-2 bg-white text-gray-700">
+                        <fieldset class="flex flex-col w-full">
+                            <label for="enfStartDate">Start Date</label>
+                            <input type="date" name="enfStartDate" id="enfStartDate" class="bg-transparent text-gray-700 border-b border-b-gray-700/30" value="">
+                        </fieldset>
+                        <fieldset class="flex flex-col w-full">
+                            <label for="enfEndDate">End Date</label>
+                            <input type="date" name="enfEndDate" id="enfEndDate" class="bg-transparent text-gray-700 border-b border-b-gray-700/30" value="">
+                        </fieldset>
+                        <button id="enforcementAnalysisButton" type="button" class="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-md">Submit</button>
+                    </form>
+                    <div class="flex flex-row justify-end px-4 py-2 bg-white text-gray-700">
+                        <select id="enfAnalysisType" class="px-2 py-2 border border-gray-700/50 w-full rounded">
+                            <option value="none">None</option>
+                            <option value="realtime">Realtime Today Data</option>
+                            <option value="period">Select Period</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="accidentMapDataWrap" class="bg-gray-700 rounded w-[400px]">
+                    <h2 class="px-4 py-2">Traffic Accident Analysis</h2>
+                    <form id="acdntAnalysisForm" name="acdntAnalysisForm" class="hidden flex flex-row px-4 py-4 gap-2 bg-white text-gray-700">
+                        <fieldset class="flex flex-col w-full">
+                            <label for="acdntStartDate">Start Date</label>
+                            <input type="date" name="acdntStartDate" id="acdntStartDate" class="bg-transparent text-gray-700 border-b border-b-gray-700/30" value="">
+                        </fieldset>
+                        <fieldset class="flex flex-col w-full">
+                            <label for="acdntEndDate">End Date</label>
+                            <input type="date" name="acdntEndDate" id="acdntEndDate" class="bg-transparent text-gray-700 border-b border-b-gray-700/30" value="">
+                        </fieldset>
+                        <button id="acdntAnalysisButton" type="button" class="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-md">Submit</button>
+                    </form>
+                    <div class="flex flex-row justify-end px-4 py-2 bg-white text-gray-700">
+                        <select id="acdntAnalysisType" class="px-2 py-2 border border-gray-700/50 w-full rounded">
+                            <option value="none">None</option>
+                            <option value="realtime">Realtime Today Data</option>
+                            <option value="period">Select Period</option>
+                        </select>
+                    </div>
+                </div>
+                <!--<div id="recentlyAccidentTop10" class="bg-gray-700">
+
+                </div>-->
+            </div>
+            <div id="mapMenuContainer" class="absolute left-3 top-3 flex flex-row divide-x divide-white/50">
+                <!--<button id="mapMenuToggleButton" class="relative px-1 py-1 z-10 bg-gray-700 hover:bg-gray-900 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 duration-300 ease-out transition-all">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                    </svg>
+                </button>-->
+                <nav id="mapMenu" class="flex flex-row left-0 duration-300 ease-out transition-all divide-x divide-white/50">
+                    <div class="group relative">
+                        <button type="button" class="px-5 py-2 inline-flex justify-center items-center bg-gray-700 hover:bg-gray-900 rounded">
+                            Facility
+                            <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+                            </svg>
+                        </button>
+                        <div
+                                class="absolute  left-0 w-[250px] origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
+                            <div class="py-1">
+                                <div class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
+                                    Enforcement Camera
+                                    <input type="checkbox" class="peer sr-only opacity-0" checked id="toggle-camera" onchange="window.map.facility.toggleFacilityLayer('TFT006')"/>
+                                    <label for="toggle-camera" class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-gray-400 px-0.5 outline-gray-400 transition-colors before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow before:transition-transform before:duration-300 peer-checked:bg-green-500 peer-checked:before:translate-x-full peer-focus-visible:outline peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gray-400 peer-checked:peer-focus-visible:outline-green-500" >
+                                        <span class="sr-only">Enable</span>
+                                    </label>
+                                </div>
+                                <div class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
+                                    Pedestrian Bridge
+                                    <input type="checkbox" class="peer sr-only opacity-0" checked id="toggle-overpass"  onchange="window.map.facility.toggleFacilityLayer('TFT001')" />
+                                    <label for="toggle-overpass" class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-gray-400 px-0.5 outline-gray-400 transition-colors before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow before:transition-transform before:duration-300 peer-checked:bg-green-500 peer-checked:before:translate-x-full peer-focus-visible:outline peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gray-400 peer-checked:peer-focus-visible:outline-green-500">
+                                        <span class="sr-only">Enable</span>
+                                    </label>
+                                </div>
+                                <div class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
+                                    Crosswalk
+                                    <input type="checkbox" class="peer sr-only opacity-0" checked id="toggle-crosswalk"  onchange="window.map.facility.toggleFacilityLayer('TFT002')" />
+                                    <label for="toggle-crosswalk" class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-gray-400 px-0.5 outline-gray-400 transition-colors before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow before:transition-transform before:duration-300 peer-checked:bg-green-500 peer-checked:before:translate-x-full peer-focus-visible:outline peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gray-400 peer-checked:peer-focus-visible:outline-green-500">
+                                        <span class="sr-only">Enable</span>
+                                    </label>
+                                </div>
+                                <div class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
+                                    Speed Dump
+                                    <input type="checkbox" class="peer sr-only opacity-0" checked id="toggle-speeddump"  onchange="window.map.facility.toggleFacilityLayer('TFT004')" />
+                                    <label for="toggle-speeddump" class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-gray-400 px-0.5 outline-gray-400 transition-colors before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow before:transition-transform before:duration-300 peer-checked:bg-green-500 peer-checked:before:translate-x-full peer-focus-visible:outline peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gray-400 peer-checked:peer-focus-visible:outline-green-500">
+                                        <span class="sr-only">Enable</span>
+                                    </label>
+                                </div>
+                                <div class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
+                                    Traffic Light
+                                    <input type="checkbox" class="peer sr-only opacity-0" checked id="toggle-light"  onchange="window.map.facility.toggleFacilityLayer('TFT003')" />
+                                    <label for="toggle-light" class="relative flex h-6 w-11 cursor-pointer items-center rounded-full bg-gray-400 px-0.5 outline-gray-400 transition-colors before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow before:transition-transform before:duration-300 peer-checked:bg-green-500 peer-checked:before:translate-x-full peer-focus-visible:outline peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gray-400 peer-checked:peer-focus-visible:outline-green-500">
+                                        <span class="sr-only">Enable</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <link th:href="@{/libs/mapbox/mapbox-gl.3.2.0.css}" rel="stylesheet">
+    <script th:src="@{/libs/mapbox/mapbox-gl.3.2.0.js}"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <script type="module" th:src="@{/js/map/map.js}"></script>
+</div>
+
+</html>

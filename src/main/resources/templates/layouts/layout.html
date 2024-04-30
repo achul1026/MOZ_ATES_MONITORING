@@ -3,13 +3,6 @@
 
 	<th:block th:replace="fragments/head :: headFragment"></th:block>
 	<body>
-		<div id="dashboardContainer">
-			<th:block th:replace="fragments/header :: headerFragment"></th:block>
-			<th:block th:replace="fragments/left :: leftFragment"></th:block>
-			<th:block layout:fragment="content"></th:block>
-			<th:block layout:fragment="TfcAcdnt"></th:block>
-			<th:block layout:fragment="tfcEnf"></th:block>
-			<th:block th:replace="fragments/footer :: footerFragment"></th:block>
-		</div>
+		<th:block layout:fragment="content"></th:block>
 	</body>
 </html>

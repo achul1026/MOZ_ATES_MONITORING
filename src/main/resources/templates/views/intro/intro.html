@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/layout">
+<div layout:fragment="content" id="rootContainer" class="bg-gray-700 h-dvh flex flex-row text-white">
+    <div id="selectMapMonitoringContainer" class="intro-select-container relative basis-1/2 text-center">
+        <div class="absolute z-10 top-1/2 left-6 right-6 -translate-y-1/2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mx-auto mb-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+            </svg>
+            <h1 class="mb-4 text-4xl md:text-6xl lg:text-6xl font-bold">MAP</h1>
+            <p class="mb-6 text-lg md:text-lg lg:text-lg text-white/80 max-w-[80%] mx-auto">
+                Você pode verificar áreas de acidentes, áreas de fiscalização, informações sobre instalações, etc. usando informações do mapa de Moçambique.
+            </p>
+            <a href="/map" class="intro-button-green-default">
+                Display Map Monitoring
+            </a>
+        </div>
+    </div>
+    <div id="selectStatisticsMonitoringContainer" class="intro-select-container relative basis-1/2">
+        <div class="absolute z-10 top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mx-auto mb-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+            </svg>
+            <h1 class="mb-4 text-4xl md:text-6xl lg:text-6xl font-bold">Statistics</h1>
+            <p class="mb-6 text-lg md:text-lg lg:text-lg text-white/80 max-w-[80%] mx-auto">Em formato de dashboard, você pode conferir informações estatísticas relacionadas a repressões, acidentes e multas por meio de gráficos e tabelas.</p>
+            <a href="/statistics" class="intro-button-green-default">
+                Display Staitistics Monitoring
+            </a>
+        </div>
+    </div>
+</div>
+
+</html>

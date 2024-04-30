@@ -15,14 +15,15 @@ build-job :
     - ./gradlew clean build
     - echo "Compile complete."
 
-#deploy-job :
-#  stage: deploy
-#  script:
-#    - echo "배포시작..."
-#    - cp /home/gitlab-runner/builds/h636sxd-a/0/mozates/moz_ates_police_webapp/build/libs/police_app-0.0.1-SNAPSHOT-plain.war /home/jboss/EAP-7.4.0/application/police_app/#deployments/
-#    - sudo chown jboss:jboss /home/jboss/EAP-7.4.0/application/police_app/deployments/police_app-0.0.1-SNAPSHOT-plain.war
-#    - cd /home/jboss/EAP-7.4.0/application/police_app
-    #- ./stop.sh
-    #- sleep 5
-    #- ./start.sh
-#    - echo "배포종료."
+deploy-job :
+  stage: deploy
+  script:
+    - echo "배포시작..."
+    - cp /home/gitlab-runner/builds/h636sxd-a/0/mozates/moz_ates_monitoring/build/libs/monitoring-0.0.1-SNAPSHOT-plain.war /home/jboss/EAP-7.4.0/application/monitoring/deployments/
+    - sudo chown jboss:jboss /home/jboss/EAP-7.4.0/application/monitoring/deployments/monitoring-0.0.1-SNAPSHOT-plain.war
+    - cd /home/jboss/EAP-7.4.0/application/monitoring
+    #- sudo su bluedus
+    - ./stop.sh
+    - sleep 5
+    - ./start.sh
+    - echo "배포종료."

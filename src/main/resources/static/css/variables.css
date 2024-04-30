@@ -1,0 +1,11 @@
+:root {
+    /* Color Variables */
+    --main-bg-color: #f9f9f9;
+    --key-color-100: rgba(16, 185, 129, 1);
+    --default-border-color: rgba(209, 213, 219, 0.5);
+
+    /* Item Padding Variables */
+    --item-padding-default:1.5rem;
+
+      /* Item Margin Variables */
+  }
