@@ -14,12 +14,11 @@
             </svg>
             <span>MOZ-ATES Map Monitoring</span>
         </h1>
-        <div>
-        </div>
     </header>
     <div class="w-full h-full relative text-white">
+        <div id="mapCenterCoordinates" class="fixed left-1/2 transform -translate-x-1/2 text-sm z-10"></div>
         <div id="map" class="w-full h-full">
-
+            <th:block th:insert="tags/mapLegend :: mapLegendFragment"></th:block>
         </div>
         <div id="mapOverlapContainer" class="text-sm absolute left-0 top-0 bottom-0">
             <div id="mapStatisticsContainer" class="absolute left-3 bottom-[30px] flex col gap-2 items-end">

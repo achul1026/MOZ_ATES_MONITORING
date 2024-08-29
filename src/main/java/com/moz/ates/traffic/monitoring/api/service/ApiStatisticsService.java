@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,10 +58,11 @@ public class ApiStatisticsService {
     public List<StatisticsEnforcementTableDTO> getEnforcementListRecently(){
         List<Map<String, Object>> result = monitoringStatisticsRepository.findEnforcementListRecentlyLimit10();
         return result.stream().map(stringObjectMap -> {
+            LocalDateTime genDate = (LocalDateTime) stringObjectMap.get("genDate");
             StatisticsEnforcementTableDTO statisticsDTO = new StatisticsEnforcementTableDTO();
             statisticsDTO.setDrvLcenId(BDStringUtils.parseObjectToString(stringObjectMap.get("drvLcenId"), "-"));
             statisticsDTO.setType(BDStringUtils.parseObjectToString(stringObjectMap.get("type"), ""));
-            statisticsDTO.setGenDate((LocalDateTime) stringObjectMap.get("genDate"));
+            statisticsDTO.setGenDate(Timestamp.valueOf(genDate));
             statisticsDTO.setId(BDStringUtils.parseObjectToString(stringObjectMap.get("id"), ""));
             statisticsDTO.setName(BDStringUtils.parseObjectToString(stringObjectMap.get("name"), ""));
             statisticsDTO.setRoadName(BDStringUtils.parseObjectToString(stringObjectMap.get("roadName"),"-"));
@@ -104,9 +107,10 @@ public class ApiStatisticsService {
         List<Map<String, Object>> result = monitoringStatisticsRepository.findAccidentListRecentlyLimit10();
         return result.stream().map(stringObjectMap -> {
             StatisticsAccidentTableDTO statisticsDTO = new StatisticsAccidentTableDTO();
+            LocalDateTime genDate = (LocalDateTime) stringObjectMap.get("genDate");
             statisticsDTO.setPolLcenId(BDStringUtils.parseObjectToString(stringObjectMap.get("polLcenId"), "-"));
             statisticsDTO.setType(BDStringUtils.parseObjectToString(stringObjectMap.get("type"), ""));
-            statisticsDTO.setGenDate((LocalDateTime) stringObjectMap.get("genDate"));
+            statisticsDTO.setGenDate(Timestamp.valueOf(genDate));
             statisticsDTO.setId(BDStringUtils.parseObjectToString(stringObjectMap.get("id"), ""));
             statisticsDTO.setPolNm(BDStringUtils.parseObjectToString(stringObjectMap.get("polNm"), ""));
             statisticsDTO.setRoadName(BDStringUtils.parseObjectToString(stringObjectMap.get("roadName"),"-"));

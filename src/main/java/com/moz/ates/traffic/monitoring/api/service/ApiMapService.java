@@ -15,8 +15,22 @@ import java.util.Map;
 public class ApiMapService {
 
 	final private MonitoringMapRepository monitoringMapRepository;
-
+	
+	public FeaturesLayerDTO getEquipmentSource(Map<String, String> param) {
+		FeaturesLayerDTO featuresLayerDTO = new FeaturesLayerDTO();
+		List<GeoJsonDTO.FeaturesDTO> featuresList = new ArrayList<>();
+		List<Map<String, Object>> equipmentList = monitoringMapRepository.findAllEquipmentByEquipmentTy(param);
+		return getFeaturesLayerDTO(featuresLayerDTO, featuresList, equipmentList);
+	}
+	
 	public FeaturesLayerDTO getFacilitySource(Map<String, String> param){
+		FeaturesLayerDTO featuresLayerDTO = new FeaturesLayerDTO();
+		List<GeoJsonDTO.FeaturesDTO> featuresList = new ArrayList<>();
+		List<Map<String, Object>> facilityList = monitoringMapRepository.findAllFacilityByFacilityTy(param);
+		return getFeaturesLayerDTO(featuresLayerDTO, featuresList, facilityList);
+	}
+
+	public FeaturesLayerDTO getOrganizationGeoJson(Map<String, String> param) {
 		FeaturesLayerDTO featuresLayerDTO = new FeaturesLayerDTO();
 		List<GeoJsonDTO.FeaturesDTO> featuresList = new ArrayList<>();
 		List<Map<String, Object>> facilityList = monitoringMapRepository.findAllFacilityByFacilityTy(param);

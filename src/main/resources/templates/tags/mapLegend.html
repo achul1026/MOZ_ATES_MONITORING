@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="mapLegendFragment">
+    <div class="absolute z-50 bg-white top-3 left-3 min-w-64 max-w-64 rounded overflow-hidden">
+        <div class="bg-gray-700 flex justify-between items-center px-4 py-2">
+            <h2 class="text-white text-base">
+                legend
+            </h2>
+            <img src="/assets/map/legend_toggle_btn.png" alt="toggle" class="toggle-btn cursor-pointer" onclick="legendToggle();">
+        </div>
+        <div class="lg-con overflow-y-auto max-h-40 p-4">
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT000.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Chevron Sign
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT001.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Delineator
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT003.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Median barrier
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT004.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Roadside barrier
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT005.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Protect head light
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT006.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Anti-skid pavement
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT008.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Variable message sign
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT009.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    LED warning sign
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT010.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Lane control sign
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT011.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Variable speed limit
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT012.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    fixed type camera
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT015.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Speed hump
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT016.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    crash cushion
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT018.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Emergency stop facility
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/facility_TFT019.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Emergency call
+                </div>
+            </div>
+
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/organization_TFT900.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Organizações relacionadas
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-2">
+                <div>
+                    <img src="/assets/map/accident_001.png" class="w-5">
+                </div>
+                <div class="text-black">
+                    Acidentes
+                </div>
+            </div>
+            <div class="flex gap-1.5 items-center mb-0">
+                <div>
+                    <img src="/assets/map/equipment_EQP001.png" class="w-5 max-w-5">
+                </div>
+                <div class="text-black">
+                    Equipamento de fiscalização de trânsito não tripulado
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        function legendToggle() {
+            const lgCon = $('.lg-con');
+            const lgBtn = $('.toggle-btn');
+
+            if (lgBtn.hasClass('on')) {
+                lgBtn.removeClass('on');
+                lgCon.slideDown(500);
+            } else {
+                lgBtn.addClass('on');
+                lgCon.slideUp(500);
+            }
+        }
+    </script>
+</th:block>
+</html>

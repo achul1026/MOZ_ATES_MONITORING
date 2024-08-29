@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div style="max-width:450px;">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <tbody>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Date</th>
+            <td th:text="${#dates.format(tfcEnfMaster.tfcEnfDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        </tr>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Province</th>
+            <td th:text="${tfcEnfMaster.prvDesc}"></td>
+        </tr>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800">District</th>
+            <td th:text="${tfcEnfMaster.distDesc}"></td>
+        </tr>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Total Fine</th>
+            <td th:text="${@mozatesCommonUtils.priceFmt(tfcEnfMaster.totalPrice ,'MOZAMBIQUE_METICAL')}"></td>
+        </tr>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th  class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-center" colspan="2">Illegal Laws</th>
+        </tr>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <td colspan="2" class="px-6 py-3">
+                <th:block th:each="item : ${fineInfoList}">
+                    <p>
+                    <div>
+                        <span th:text="${item.tfcLwInfo.lawNm}"></span>
+                        <span th:text="${@mozatesCommonUtils.priceFmt(item.tfcEnfPrice ,'MOZAMBIQUE_METICAL')}"></span>
+                    </div>
+                    <span th:text="${item.tfcLwFineInfo.fineDesc}"></span>
+                    </p>
+                </th:block>
+            </td>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+</html>

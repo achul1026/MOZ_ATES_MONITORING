@@ -26,6 +26,7 @@ const MozAtesMap = function(elementId){
 
     this.enforcementInterval = null;
     this.accidentInterval = null;
+    let marker = null;
 
     let loadSource = async function(){
         for(const icon of Env.icons) {
@@ -95,25 +96,55 @@ const MozAtesMap = function(elementId){
         });
         _map.addControl(geocoder);
         _map.addControl(new mapboxgl.NavigationControl());
+        const scale = new mapboxgl.ScaleControl({
+            maxWidth: 80,
+            unit: 'metric'
+        });
+        _map.addControl(scale, "bottom-right");
         loadSource().then();
         _map.on('load', function() {
             _core.facility = new Facility();
 
             _core.facility.getSource().then(()=>{
+                _core.facility.drawFacility('TFT000');
                 _core.facility.drawFacility('TFT001');
-                _core.facility.drawFacility('TFT002');
                 _core.facility.drawFacility('TFT003');
                 _core.facility.drawFacility('TFT004');
                 _core.facility.drawFacility('TFT005');
                 _core.facility.drawFacility('TFT006');
+                _core.facility.drawFacility('TFT007');
+                _core.facility.drawFacility('TFT008');
+                _core.facility.drawFacility('TFT009');
+                _core.facility.drawFacility('TFT010');
+                _core.facility.drawFacility('TFT011');
+                _core.facility.drawFacility('TFT012');
+                _core.facility.drawFacility('TFT015');
+                _core.facility.drawFacility('TFT016');
+                _core.facility.drawFacility('TFT018');
+                _core.facility.drawFacility('EQT001');
             });
 
+            _core.organization = new Organization();
+            _core.organization.getSource().then(() => {
+                _core.organization.drawOrganization('TFT900');
+            })
+
+            _core.equipment = new Equipment();
+			_core.equipment.getSource().then(() => {
+				_core.equipment.drawEquipment('EQT001');
+			});
+			
             _core.enforcement = new Enforcement();
             // _core.enforcementInterval = _core.enforcement.doInterval();
             _core.accident = new Accident();
             // _core.accidentInterval = _core.accident.doInterval();
+            
             _core.warning = new Warning();
-            _core.warning.doInterval();
+//            _core.warning = _core.warning.doInterval();
+        });
+        const elem = document.getElementById("mapCenterCoordinates");
+        _map.on("move", (ctx) => {
+            elem.innerText = _map.getCenter().lng + "," + _map.getCenter().lat;
         });
         
     }
@@ -178,21 +209,10 @@ const MozAtesMap = function(elementId){
                     0, '#51bbd6',
                     100, '#ec1346',
                 ],
-                'circle-radius': 20,
+                'circle-radius': 5,
                 'circle-opacity' : 0.8,
                 'circle-stroke-color' : pointColor,
                 'circle-stroke-width' : 2
-            },
-            'filter': ['!=', 'cluster', true]
-        }
-        let unclusterTextLayer = {
-            id: layerName+"_UNCLUSTER_TEXT",
-            type: 'symbol',
-            source: sourceName,
-            layout: {
-                'text-allow-overlap' : true,
-                'text-field': ['number-format',['get', key],{locale:'en'}],
-                'text-size': 10
             },
             'filter': ['!=', 'cluster', true]
         }
@@ -200,7 +220,45 @@ const MozAtesMap = function(elementId){
         _map.addLayer(clusterLayer);
         _map.addLayer(clusterTextLayer);
         _map.addLayer(unClusterLayer);
-        _map.addLayer(unclusterTextLayer);
+
+        _map.on('click', layerName+"_CLUSTER", function(e) {
+            const features = _map.queryRenderedFeatures(e.point, {
+                layers: [layerName+"_CLUSTER"]
+            });
+            const clusterId = features[0].properties.cluster_id;
+            _map.getSource(sourceName).getClusterExpansionZoom(clusterId, function(err, zoom) {
+                if (err) return;
+
+                _map.easeTo({
+                    center: features[0].geometry.coordinates,
+                    zoom: zoom
+                });
+            });
+        });
+
+        _map.on('click', layerName+"_UNCLUSTER", function(e) {
+            const prop = e.features[0].properties;
+            console.log(prop);
+            if(prop.TFC_ACDNT_ID){
+                fetch("/map/acdnt/detail.ajax?tfcAcdntId="+prop.TFC_ACDNT_ID+"&acdntPsnrCnt="+prop.ACDNT_PNR_CNT, {
+                }).then(res => res.text())
+                    .then(html => {
+                        new mapboxgl.Popup({offset : [0, -15], maxWidth : "300"})
+                            .setLngLat(e.lngLat)
+                            .setHTML(html)
+                            .addTo(_map)
+                    })
+            }else if(prop.TFC_ENF_ID){
+                fetch("/map/enf/detail.ajax?tfcEnfId="+prop.TFC_ENF_ID, {
+                }).then(res => res.text())
+                    .then(html => {
+                        new mapboxgl.Popup({offset : [0, -15], maxWidth : "300"})
+                            .setLngLat(e.lngLat)
+                            .setHTML(html)
+                            .addTo(_map)
+                    })
+            }
+        });
 
     }
     _core.drawHeatmap = function(geoJSON,sourceName,layerName,key){
@@ -593,6 +651,170 @@ const MozAtesMap = function(elementId){
                     <div class="flex flex-row justify-between">
                         <p>Name</p>
                         <p>${prop.FACILITY_NM}</p>
+                    </div>
+                    <div class="flex flex-row justify-between">
+                        <p>Road</p>
+                        <p>${prop.ROAD_ADDR}</p>
+                    </div>
+                    <div class="flex flex-row justify-between">
+                        <p>Status</p>
+                        <p>${prop.FACILITY_STTS === 'Y' ? 'Activate' : 'Deactivate'}</p>
+                    </div>
+                </div>
+            `
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            popup.setLngLat(coordinates).setHTML(html).addTo(_map);
+        }
+        leaveEvent() {
+            _map.getCanvas().style.cursor = '';
+            popup.remove();
+        }
+    }
+
+    class Organization{
+        constructor() {
+
+        }
+
+        async getSource() {
+            await fetch("/api/map/organization", {})
+                .then((response) => {
+                    return response.json()
+                })
+                .then((geoJson)=>{
+                    this.geoJson = geoJson;
+                    if(_map.getSource(Env.source.facility)){
+                        _map.getSource(Env.source.facility).setData(geoJson);
+                    }else{
+                        _map.addSource(Env.source.facility, {
+                            type : "geojson",
+                            data : geoJson
+                        });
+                    }
+                })
+                .catch((err)=>{
+                    console.error(err);
+                    // alert("An error occurred while retrieving facility information. Please contact the administrator");
+                })
+        }
+        toggleOrganizationLayer = function(typeCode) {
+            _core.toggleLayer(Env.layer.facility+"_"+typeCode);
+        }
+        drawOrganization = function(typeCode){
+            const _this = this;
+            _core.drawIcon(['get','CD_ID'],Env.source.facility,Env.layer.facility+"_"+typeCode, ['==','CD_ID',typeCode], function(...layerObj){
+                for(const obj of layerObj){
+                    _map.off("mouseenter",obj.id,_this.hoverEvent);
+                    _map.off("mouseleave",obj.id,_this.leaveEvent);
+                    _map.on("mouseenter",obj.id,_this.hoverEvent);
+                    _map.on("mouseleave",obj.id,_this.leaveEvent);
+                }
+            });
+        }
+        hoverEvent(e) {
+            _map.getCanvas().style.cursor = 'pointer';
+
+            // Copy coordinates array.
+            const coordinates = e.features[0].geometry.coordinates.slice();
+            const prop = e.features[0].properties;
+            console.log(prop.FACILITY_STTS)
+            const html = `
+                <div class="text-gray-600 w-[200px]">
+                    <dl class="flex flex-row justify-between">
+                        <p>Type</p>
+                        <p>${prop.CD_NM}</p>
+                    </dl>
+                    <dl class="flex flex-row justify-between">
+                        <p>Name</p>
+                        <p>${prop.FACILITY_NM}</p>
+                    </dl>
+                    <dl class="flex flex-row justify-between">
+                        <p>Road</p>
+                        <p>${prop.ROAD_ADDR}</p>
+                    </dl>
+                    <dl class="flex flex-row justify-between">
+                        <p>Status</p>
+                        <p>${prop.FACILITY_STTS}</p>
+                    </dl>
+                </div>
+            `
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            popup.setLngLat(coordinates).setHTML(html).addTo(_map);
+        }
+        leaveEvent() {
+            _map.getCanvas().style.cursor = '';
+            popup.remove();
+        }
+    }
+
+    class Equipment{
+        constructor() {
+
+        }
+        async getSource() {
+            await fetch("/api/map/equipment", {})
+                .then((response) => {
+                    return response.json()
+                })
+                .then((geoJson)=>{
+                    this.geoJson = geoJson;
+                    if(_map.getSource(Env.source.equipment)){
+                        _map.getSource(Env.source.equipment).setData(geoJson);
+                    }else{
+                        _map.addSource(Env.source.equipment, {
+                            type : "geojson",
+                            data : geoJson
+                        });
+                    }
+                })
+                .catch((err)=>{
+                    console.error(err);
+                    // alert("An error occurred while retrieving facility information. Please contact the administrator");
+                })
+        }
+        
+        toggleEquipmentLayer = function(typeCode) {
+            _core.toggleLayer(Env.layer.equipment+"_"+typeCode);
+        }
+        
+        drawEquipment = function(typeCode){
+            const _this = this;
+            _core.drawIcon(['get','CD_ID'],Env.source.equipment,Env.layer.equipment+"_"+typeCode, ['==','CD_ID',typeCode], function(...layerObj){
+                for(const obj of layerObj){
+                    _map.off("mouseenter",obj.id,_this.hoverEvent);
+                    _map.off("mouseleave",obj.id,_this.leaveEvent);
+                    _map.on("mouseenter",obj.id,_this.hoverEvent);
+                    _map.on("mouseleave",obj.id,_this.leaveEvent);
+                }
+            });
+        }
+        hoverEvent(e) {
+            _map.getCanvas().style.cursor = 'pointer';
+
+            // Copy coordinates array.
+            const coordinates = e.features[0].geometry.coordinates.slice();
+            const prop = e.features[0].properties;
+            
+
+            const html = `
+                <div class="text-gray-600 w-[200px]">
+                    <div class="flex flex-row justify-between">
+                        <p>Type</p>
+                        <p>${prop.CD_NM}</p>
+                    </div>
+                    <div class="flex flex-row justify-between">
+                        <p>Name</p>
+                        <p>${prop.EQP_NM}</p>
                     </div>
                     <div class="flex flex-row justify-between">
                         <p>Road</p>

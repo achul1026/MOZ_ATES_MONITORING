@@ -3,11 +3,12 @@ package com.moz.ates.traffic.monitoring.api.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 public class StatisticsEnforcementTableDTO {
     String roadName;
-    LocalDateTime genDate;
+    Date genDate;
     String operatorInfo;
     String type;
     String name;

@@ -39,3 +39,9 @@
         background-position-y: 0;
     }
 }
+.toggle-btn {
+    transition: transform ease-out 0.3s;
+}
+.toggle-btn.on {
+    transform: rotate(180deg);
+}

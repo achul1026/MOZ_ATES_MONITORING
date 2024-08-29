@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div style="max-width:450px;">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <tbody>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Date</th>
+            <td th:text="${#dates.format(tfcAcdntMaster.acdntDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        </tr>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Address</th>
+            <td th:text="${tfcAcdntMaster.roadAddr}"></td>
+        </tr>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Type Detail</th>
+            <td th:text="${tfcAcdntMaster.acdntTyDtls}"></td>
+        </tr>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Passenger Count</th>
+            <td th:text="${acdntPsnrCnt}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</html>
